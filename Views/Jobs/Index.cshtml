@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+    <style>
+      .wrapper {
+        display: flex;
+        flex-flow: row no-wrap;
+        justify-content: space-between;
+        align-items: center;
+        width: 200px;
+        height: 200px;
+        margin: 100px auto;
+        background: red;
+        padding: 20px;
+      }
+
+      .unit {
+        display: flex;
+        flex-flow: column;
+        justify-content: space-between;
+        align-items: space-between;
+        height: 100%;
+        position: relative;
+      }
+
+      .button {
+        border: 2px solid black;
+        height: 50px;
+        width: 50px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: grey;
+        
+        &:hover {
+          opacity: 0.8;
+        }
+        
+      }
+
+    .value {
+      border: 2px solid black;
+      height: 50px;
+      width: 50px;
+      font-family: sans-serif;
+      font-size: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: lightgrey;
+        overflow: hidden;
+    }
+
+    .animate {
+      top: 0;
+      position: relative;
+      overflow: hidden;
+      animation-name: downandout;
+      animation-duration: .5s;
+      animation-iteration-count: 1;
+      transition-timing-function: ease-in-out;
+      
+      &--reverse {
+        animation-direction: reverse;
+      }
+    }
+  </style>
+</head>
+  <body>
+      <h1>Jobs</h1>
+
+      <div class="container">
+  <div class="row">
+    <div class="form-group col-md-6">
+      <label for="time">Time</label>
+      <div class="input-group date" id="timePicker">
+        <input type="text" class="form-control timePicker">
+        <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+      </div>
+    </div>
+  </div>
+</div>
+    </body>
+
+    <script>
+      
+      var today = new Date();
+var minDate = today.setDate(today.getDate() + 1);
+
+$('#datePicker').datetimepicker({
+  useCurrent: false,
+  format: "MM/DD/YYYY",
+  minDate: minDate
+});
+
+var firstOpen = true;
+var time;
+
+$('#timePicker').datetimepicker({
+  useCurrent: false,
+  format: "hhmm"
+}).on('dp.show', function() {
+  if(firstOpen) {
+    time = moment().startOf('day');
+    firstOpen = false;
+  } else {
+    time = "01:00 PM"
+  }
+  
+  $(this).data('DateTimePicker').date(time);
+});
+
+  </script>
+</html>
